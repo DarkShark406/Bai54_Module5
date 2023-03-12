@@ -1,0 +1,105 @@
+<button type="button" class="btn btn-link" routerLink="/">Go back</button>
+{{ errMessage }}
+<div class="mt-4">
+  <div class="form-group">
+    <label for="id">Mã sách</label>
+    <input
+      type="text"
+      class="form-control"
+      id="id"
+      placeholder="Nhập mã sách"
+      [(ngModel)]="book.id"
+    />
+  </div>
+  <div class="form-group">
+    <label for="name">Mã tên sách</label>
+    <input
+      type="text"
+      class="form-control"
+      id="name"
+      placeholder="Nhập tên sách"
+      [(ngModel)]="book.name"
+    />
+  </div>
+  <div class="form-group">
+    <label for="description">Mô tả</label>
+    <input
+      type="text"
+      class="form-control"
+      id="description"
+      placeholder="Nhập tên sách"
+      [(ngModel)]="book.description"
+    />
+  </div>
+  <div class="form-group">
+    <label for="price">Giá sách</label>
+    <input
+      type="text"
+      class="form-control"
+      id="price"
+      placeholder="Nhập giá sách"
+      [(ngModel)]="book.price"
+    />
+  </div>
+  <div class="form-group">
+    <label for="cover">Ảnh bìa</label>
+    <input
+      type="file"
+      class="file-input"
+      (change)="onFileSelected($event)"
+      #fileUpload
+      name="image"
+      [(ngModel)]="book.coverImage"
+    />
+
+    <div class="file-upload">
+      {{ fileName || "No file uploaded yet." }}
+      <button
+        mat-mini-fab
+        color="primary"
+        class="upload-btn"
+        (click)="fileUpload.click()"
+      >
+        Upload
+      </button>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="quanitty">Số lượng</label>
+    <input
+      type="number"
+      class="form-control"
+      id="quanitty"
+      placeholder="Nhập số lượng"
+      [(ngModel)]="book.quantityStock"
+    />
+  </div>
+  <div class="form-group">
+    <label for="cdCode">Mã CD</label>
+    <input
+      type="text"
+      class="form-control"
+      id="cdCode"
+      placeholder="Nhập mã CD"
+      [(ngModel)]="book.cdCode"
+    />
+  </div>
+  <div class="form-group">
+    <label for="publisherCode">Mã NXB</label>
+    <input
+      type="text"
+      class="form-control"
+      id="publisherCode"
+      placeholder="Nhập mã NXB"
+      [(ngModel)]="book.publisherCode"
+    />
+  </div>
+  <button
+    (click)="postBook()"
+    routerLink="/"
+    type="submit"
+    class="btn btn-primary"
+  >
+    Create new book
+  </button>
+</div>

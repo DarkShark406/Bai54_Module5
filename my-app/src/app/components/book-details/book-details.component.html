@@ -1,0 +1,31 @@
+<button type="button" class="btn btn-link" routerLink="/">Go back</button>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Tên sách</th>
+      <th scope="col">Giá bán</th>
+      <th scope="col">Mô tả</th>
+      <th scope="col">Ảnh bìa</th>
+      <th scope="col">Ngày tạo</th>
+      <th scope="col">Ngày cập nhật</th>
+      <th scope="col">Số lượng tồn</th>
+      <th scope="col">Mã CD</th>
+      <th scope="col">Mã NXB</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>{{ book.name }}</td>
+      <td>{{ book.price }}</td>
+      <td>{{ book.description }}</td>
+      <td>
+        <img [src]="'http://localhost:3001/image/' + book.coverImage" alt="" />
+      </td>
+      <td>{{ book.createAt }}</td>
+      <td>{{ book.updateAt }}</td>
+      <td>{{ book.quantityStock }}</td>
+      <td>{{ book.cdCode }}</td>
+      <td>{{ book.publisherCode }}</td>
+    </tr>
+  </tbody>
+</table>
