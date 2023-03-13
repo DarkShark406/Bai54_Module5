@@ -40,10 +40,6 @@ export class BookEditComponent {
     this.book.updateAt = `${date} - ${time}`;
 
     if (this.coverImageNew) {
-      let str = this.coverImageNew;
-      let arr = str.split('\\');
-      this.coverImageNew = arr[arr.length - 1];
-
       this.book.coverImage = this.coverImageNew;
     }
 
@@ -74,6 +70,10 @@ export class BookEditComponent {
         }
       });
     }
+
+    let str = this.coverImageNew;
+    let arr = str.split('\\');
+    this.coverImageNew = arr[arr.length - 1];
   }
 
   cancelUpload() {
@@ -84,5 +84,10 @@ export class BookEditComponent {
   reset() {
     this.uploadProgress = 0;
     this.uploadSub = new Subscription();
+  }
+
+  deleteCoverImageNew() {
+    this.coverImageNew = '';
+    this.fileName = '';
   }
 }

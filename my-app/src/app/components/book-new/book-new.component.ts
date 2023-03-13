@@ -28,10 +28,6 @@ export class BookNewComponent {
     this.book.createAt = `${date} - ${time}`;
     this.book.updateAt = `${date} - ${time}`;
 
-    let str = this.book.coverImage;
-    let arr = str.split('\\');
-    this.book.coverImage = arr[arr.length - 1];
-
     this._service.postBook(this.book).subscribe({
       next: (data) => (this.books = data),
       error: (err) => (this.errMessage = err),
@@ -57,6 +53,10 @@ export class BookNewComponent {
         }
       });
     }
+
+    let str = this.book.coverImage;
+    let arr = str.split('\\');
+    this.book.coverImage = arr[arr.length - 1];
   }
 
   cancelUpload() {

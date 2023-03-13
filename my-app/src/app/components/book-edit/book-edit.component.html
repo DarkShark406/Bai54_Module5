@@ -51,6 +51,12 @@
         Upload
       </button>
     </div>
+
+    <div *ngIf="coverImageNew">
+      <img [src]="'http://localhost:3001/image/' + coverImageNew" alt="" />
+
+      <button (click)="deleteCoverImageNew()">Xóa ảnh mới</button>
+    </div>
   </div>
   <div class="form-group">
     <label for="quanitty">Số lượng</label>
