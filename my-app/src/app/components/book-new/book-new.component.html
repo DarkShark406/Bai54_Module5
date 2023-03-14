@@ -8,8 +8,10 @@
       class="form-control"
       id="id"
       placeholder="Nhập mã sách"
+      (input)="clearInvalid()"
       [(ngModel)]="book.id"
     />
+    <div id="idMessage" class="invalid-feedback">Bắt buộc nhập mã sách</div>
   </div>
   <div class="form-group">
     <label for="name">Mã tên sách</label>
@@ -97,12 +99,7 @@
       [(ngModel)]="book.publisherCode"
     />
   </div>
-  <button
-    (click)="postBook()"
-    routerLink="/"
-    type="submit"
-    class="btn btn-primary"
-  >
+  <button (click)="postBook()" type="submit" class="btn btn-primary">
     Create new book
   </button>
 </div>

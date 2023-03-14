@@ -3,6 +3,7 @@ import { BookAPIService } from 'src/app/services/book-api.service';
 import { Book } from 'src/app/interfaces/Book';
 import { finalize, Subscription } from 'rxjs';
 import { HttpClient, HttpEventType } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-book-new',
@@ -19,9 +20,28 @@ export class BookNewComponent {
   uploadProgress: number = 0;
   uploadSub: Subscription = new Subscription();
 
-  constructor(private _service: BookAPIService, private http: HttpClient) {}
+  constructor(
+    private _service: BookAPIService,
+    private http: HttpClient,
+    private router: Router
+  ) {}
+
+  clearInvalid() {
+    const idBookInput = document.getElementById('id');
+    if (idBookInput) {
+      idBookInput.classList.remove('is-invalid');
+    }
+  }
 
   postBook() {
+    if (this.book.id.length === 0) {
+      const idBookInput = document.getElementById('id');
+      if (idBookInput) {
+        idBookInput.classList.add('is-invalid');
+      }
+      return;
+    }
+
     const now = new Date();
     const date = now.toLocaleDateString(); // Lấy ngày hiện tại dưới dạng dd/mm/yyyy
     const time = now.toLocaleTimeString(); // Lấy giờ hiện tại dưới dạng hh:mm:ss
@@ -32,6 +52,8 @@ export class BookNewComponent {
       next: (data) => (this.books = data),
       error: (err) => (this.errMessage = err),
     });
+
+    this.router.navigate(['/']);
   }
 
   onFileSelected(event: any) {

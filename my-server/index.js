@@ -20,44 +20,32 @@ app.use(bodyParser.json());
 const cors = require("cors");
 app.use(cors());
 
-let listbooks = [
-	{
-		id: "b1",
-		name: "Giáo trình tin học cơ bản",
-		price: 26000,
-		description: "Nội dung sách giáo trình tin học cơ bản",
-		coverImage: "THCB.jpg",
-		updateAt: "3/12/2023 12:00:00 SA",
-		createAt: "3/12/2023 12:00:00 SA",
-		quantityStock: 120,
-		cdCode: 7,
-		publisherCode: 1,
-	},
-	{
-		id: "b2",
-		name: "Giáo trình Cở sở dữ liệu",
-		price: 12000,
-		description: "Nội dung sách giáo trình cơ sở dữ liệu",
-		coverImage: "CSDL.jpg",
-		updateAt: "3/12/2023 12:00:00 SA",
-		createAt: "3/12/2023 12:00:00 SA",
-		quantityStock: 25,
-		cdCode: 3,
-		publisherCode: 2,
-	},
-	{
-		id: "b3",
-		name: "Giáo trình kỹ thuật lập trình",
-		price: 25000,
-		description: "Nội dung sách giáo trình kỹ thuật lập trình",
-		coverImage: "KTLT.jpg",
-		updateAt: "3/12/2023 12:00:00 SA",
-		createAt: "3/12/2023 12:00:00 SA",
-		quantityStock: 20,
-		cdCode: 4,
-		publisherCode: 1,
-	},
-];
+const fs = require("fs");
+const path = require("path");
+
+const filePath = path.join(__dirname, "data", "books.json");
+
+let listbooks = [];
+
+fs.readFile(filePath, "utf8", (err, data) => {
+	if (err) {
+		console.error(err);
+		return;
+	}
+
+	listbooks = JSON.parse(data);
+});
+
+function writeToFile() {
+	const jsonData = JSON.stringify(listbooks);
+	fs.writeFile(filePath, jsonData, (err) => {
+		if (err) {
+			return;
+		}
+
+		console.log("Đã update vào file");
+	});
+}
 
 app.get("/books", cors(), (req, res) => {
 	res.send(listbooks);
@@ -72,6 +60,8 @@ app.get("/books/:id", cors(), (req, res) => {
 app.post("/books", cors(), (req, res) => {
 	listbooks.push(req.body);
 	res.send(listbooks);
+
+	writeToFile();
 });
 
 app.put("/books", cors(), (req, res) => {
@@ -88,10 +78,14 @@ app.put("/books", cors(), (req, res) => {
 	}
 
 	res.send(listbooks);
+
+	writeToFile();
 });
 
 app.delete("/books/:id", cors(), (req, res) => {
 	id = req.params["id"];
 	listbooks = listbooks.filter((x) => x.id !== id);
 	res.send(listbooks);
+
+	writeToFile();
 });

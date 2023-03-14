@@ -19,8 +19,23 @@ export class HomeComponent {
     });
   }
 
+  showModal() {
+    const deleteCourseModal = document.getElementById('delete-course-modal');
+    if (deleteCourseModal) {
+      deleteCourseModal.classList.add('show');
+    }
+  }
+
+  hideModal() {
+    const deleteCourseModal = document.getElementById('delete-course-modal');
+    if (deleteCourseModal) {
+      deleteCourseModal.classList.remove('show');
+    }
+  }
+
   saveSelectedBook(bookId: string) {
     this.selectedBook = bookId;
+    this.showModal();
   }
 
   deleteBook() {
@@ -29,14 +44,6 @@ export class HomeComponent {
       error: (err) => (this.errMessage = err),
     });
 
-    const deleteModal = document.getElementById('delete-course-modal');
-    if (deleteModal) {
-      deleteModal.classList.remove('show');
-    }
-
-    const modalBackdrop = document.querySelector('.modal-backdrop');
-    if (modalBackdrop) {
-      modalBackdrop.classList.remove('show');
-    }
+    this.hideModal();
   }
 }
